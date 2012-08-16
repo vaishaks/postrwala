@@ -1,0 +1,66 @@
+import webapp2
+import os
+import jinja2
+from google.appengine.ext import db
+from google.appengine.api import images
+
+template_dir = os.path.join(os.path.dirname(__file__), 'templates')
+jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir), autoescape=True)
+
+class Post(db.Model):
+	title = db.StringProperty(required = True)
+	image = db.BlobProperty(required = True)
+	description = db.TextProperty()
+	created = db.DateTimeProperty(auto_now_add = True)
+	#valid_till = db.DateTimeProperty() Figure out how to add a calendar input
+
+class Handler(webapp2.RequestHandler):
+    def write(self, *a, **kw):
+        self.response.out.write(*a, **kw)
+    
+    def render_str(self, template, **params):
+        t = jinja_env.get_template(template)
+        return t.render(params)
+    
+    def render(self, template, **kw):
+        self.write(self.render_str(template, **kw))
+
+class MainPage(Handler):   
+    def get(self):
+		posts = db.GqlQuery("SELECT * FROM Post ORDER BY created DESC LIMIT 10")
+		self.render("posts.html", posts=posts)
+
+class UploadHandler(Handler):
+	def get(self):
+		self.render("upload.html")
+		
+	def post(self):
+		title = self.request.get("title")
+		image = self.request.get("image")
+		description = self.request.get("description")
+		if title and image:
+			p = Post(title=title, image=db.Blob(image), description=description)
+			p.put()
+			"""
+			self.response.headers['Content-Type'] = 'image/JPEG'
+			self.write(p.image)
+			"""
+		else:
+			self.render("404.html")
+		
+class ImageHandler(Handler):
+	def get(self):
+		p = db.get(self.request.get('img_id'))
+		if p.image:
+			img = images.Image(p.image)
+			img.resize(width=300, height=240)
+			im = img.execute_transforms(output_encoding=images.JPEG)
+			self.response.headers['Content-Type'] = 'image/JPEG'
+			self.write(im)
+		else:
+			self.render("404.html")
+			
+app = webapp2.WSGIApplication([('/', MainPage),
+								('/upload', UploadHandler),
+								('/img', ImageHandler)],
+                              debug=True)

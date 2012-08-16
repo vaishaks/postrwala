@@ -1,0 +1,15 @@
+{% extends "front.html" %}
+
+{% block content %}
+<div class="post">
+	{% for p in posts %}
+	<!--
+		<div class="title">
+		{{p.title}}
+		</div>
+		-->
+		<img src='img?img_id={{p.key()}}'>
+		
+	{% endfor %}
+	</div>
+{% endblock %}
