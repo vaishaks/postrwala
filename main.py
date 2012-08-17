@@ -41,26 +41,36 @@ class UploadHandler(Handler):
 		if title and image:
 			p = Post(title=title, image=db.Blob(image), description=description)
 			p.put()
-			"""
-			self.response.headers['Content-Type'] = 'image/JPEG'
-			self.write(p.image)
-			"""
 		else:
 			self.render("404.html")
 		
 class ImageHandler(Handler):
 	def get(self):
-		p = db.get(self.request.get('img_id'))
+		p = Post.get_by_id(int(self.request.get('img_id')))
+		full = int(self.request.get('full')) 
 		if p.image:
 			img = images.Image(p.image)
-			img.resize(width=300, height=240)
-			im = img.execute_transforms(output_encoding=images.JPEG)
-			self.response.headers['Content-Type'] = 'image/JPEG'
-			self.write(im)
+			if full==1:
+				self.response.headers['Content-Type'] = 'image/JPEG'
+				self.write(p.image)	
+			else:
+				img.resize(width=300, height=240)
+				im = img.execute_transforms(output_encoding=images.JPEG)
+				self.response.headers['Content-Type'] = 'image/JPEG'
+				self.write(im)
+		else:
+			self.render("404.html")
+
+class PosterHandler(Handler):
+	def get(self, post_id):
+		p = Post.get_by_id(int(post_id))
+		if p:
+			self.render("poster.html", p=p)
 		else:
 			self.render("404.html")
 			
 app = webapp2.WSGIApplication([('/', MainPage),
 								('/upload', UploadHandler),
-								('/img', ImageHandler)],
+								('/img', ImageHandler),
+								('/poster/([0-9]+)', PosterHandler)],
                               debug=True)

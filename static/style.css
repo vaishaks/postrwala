@@ -1,5 +1,5 @@
 body { 
-	background: #E8E6D8; 
+	background: #fff; 
 	margin: 0; 
 	padding: 0; 
  	text-align: center; 
@@ -18,22 +18,27 @@ body {
 	src: url('/static/PoiretOne.ttf');
 }
 
+@font-face {
+	font-family: Pompiere ;
+	src: url('/static/Pompiere.ttf');
+}
+
 h1 {
 	font-family: Poiret One;
 	font-size: 39px;
 	padding: 15px;
 	padding-left: 50px;
-	color: #434a4b;
+	color: #5D4157;
 }
 
 h3 {
-	font-family: verdana;
-	font-size: 26px;
+	font-family: Pompiere ;
+	font-size: 29px;
 }
 
 label {
-	font-family: Tahoma;
-	font-size: 19px;
+	font-family: Pompiere ;
+	font-size: 22px;
 }
 
 input {
@@ -77,7 +82,15 @@ img {
 }
 
 .poster {
-	box-shadow: 4px 4px 2px;
+	padding: 5px;
+	border: solid 1px #EFEFEF;
+}
+
+a:hover .poster{
+	border: solid 1px #CCC;
+	-moz-box-shadow: 1px 1px 5px #999;
+	-webkit-box-shadow: 1px 1px 5px #999;
+        box-shadow: 1px 1px 5px #999;
 }
 
 #E404 {
@@ -89,8 +102,8 @@ img {
 
 #header {
 	text-align: left;
-	background: rgba(255, 255, 255, 0.398);
+	background: rgba(211, 223, 203, 0.398);
 	width: 100%;
 	position: realtive;
-	top: -10px;
+	top: 0px;
 }

@@ -1,0 +1,11 @@
+{% extends "front.html" %}
+
+{% block content %}
+<div>
+	<h3>{{p.title}}</h3>
+	<img src="/img?full=1&img_id={{p.key().id()}}">
+	<div class="description">
+	{{p.description}}
+	</div>
+</div>
+{% endblock %}

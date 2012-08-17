@@ -3,13 +3,11 @@
 {% block content %}
 <div class="post">
 	{% for p in posts %}
-	<!--
-		<div class="title">
-		{{p.title}}
-		</div>
-		-->
-		<img class="poster" src='img?img_id={{p.key()}}'>
-		
+	{% set id = p.key().id() %}
+	{% set url = "/poster/" %}
+		<a href={{url}}{{id}}>
+		<img class="poster" src='/img?full=0&img_id={{p.key().id()}}'>
+		</a>
 	{% endfor %}
 	</div>
 {% endblock %}
