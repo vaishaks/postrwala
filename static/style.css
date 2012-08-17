@@ -1,6 +1,5 @@
-
 body { 
-	background: url('/static/back.jpg'); 
+	background: #E8E6D8; 
 	margin: 0; 
 	padding: 0; 
  	text-align: center; 
@@ -14,13 +13,17 @@ body {
  	word-wrap: break-word;
 } 
 
+@font-face {
+	font-family: Poiret One;
+	src: url('/static/PoiretOne.ttf');
+}
+
 h1 {
-	font-family: Tempus sans ITC;
+	font-family: Poiret One;
 	font-size: 39px;
 	padding: 15px;
 	padding-left: 50px;
 	color: #434a4b;
-	
 }
 
 h3 {
@@ -50,13 +53,17 @@ textarea {
 
 input[type=submit] {
 	font-family: Verdana;
-	width: 120px;
+	width: 120px;pload
 	height: 50px;
 }
 
 a {
 	text-decoration: none;
 	color: #000;
+}
+
+img {
+	margin: 10px;
 }
 
 .error {
@@ -69,8 +76,7 @@ a {
 	width: 100%
 }
 
-img {
-	margin: 10px;
+.poster {
 	box-shadow: 4px 4px 2px;
 }
 
@@ -84,4 +90,7 @@ img {
 #header {
 	text-align: left;
 	background: rgba(255, 255, 255, 0.398);
+	width: 100%;
+	position: realtive;
+	top: -10px;
 }
