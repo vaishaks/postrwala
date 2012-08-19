@@ -104,6 +104,21 @@ a:hover .poster{
 	text-align: left;
 	background: rgba(211, 223, 203, 0.398);
 	width: 100%;
-	position: realtive;
-	top: 0px;
+	height: 78px;
+	margin-top: 20px;
+}
+
+#status {
+	position: absolute;
+	top: 40px;
+	left: 220px;
+	font-family: Pompiere;
+	font-size: 15px;
+	padding: 0px;
+	width: 30px;
+}
+
+#title {
+	height: 77px;
+	width: 220px
 }
