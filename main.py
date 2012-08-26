@@ -38,7 +38,8 @@ class UploadHandler(Handler):
 		title = self.request.get("title")
 		image = self.request.get("image")
 		description = self.request.get("description")
-		if title and image:
+		password = self.request.get("pass")
+		if title and image and password==key:
 			p = Post(title=title, image=db.Blob(image), description=description)
 			p.put()
 		else:
@@ -74,3 +75,5 @@ app = webapp2.WSGIApplication([('/', MainPage),
 								('/img', ImageHandler),
 								('/poster/([0-9]+)', PosterHandler)],
                               debug=True)
+
+key = "booger"
