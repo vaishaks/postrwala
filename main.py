@@ -52,8 +52,10 @@ class ImageHandler(Handler):
 		if p.image:
 			img = images.Image(p.image)
 			if full==1:
+				img.resize(width=600, height=640)
+				im = img.execute_transforms(output_encoding=images.JPEG)
 				self.response.headers['Content-Type'] = 'image/JPEG'
-				self.write(p.image)	
+				self.write(im)	
 			else:
 				img.resize(width=300, height=240)
 				im = img.execute_transforms(output_encoding=images.JPEG)
